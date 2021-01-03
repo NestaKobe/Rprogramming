@@ -23,30 +23,70 @@ dir()
 
 #List objects in workspace
 ls()
+#List all the files in your working directory
+list.files()
+dir()
+
+file.exists()
+file.info()
+file.rename() #use comma as separator to rename from example1 to example2
+file.remove()
+file.copy()
+file.path()
+
+dir.create(file.path("",""), recursive=TRUE) #for two subfolders "",""
+unlink("", recursive=TRUE) #to delete a folder
 
 #read CSV
 read.csv()
 
+#Determine arguments
+args(list.files)
+  #function (path = ".", pattern = NULL, all.files = FALSE, full.names = FALSE, 
+  #recursive = FALSE, ignore.case = FALSE, include.dirs = FALSE, 
+  #no.. = FALSE) 
+  #NULL
 
+#Random sampling
+example <- sample(c(y,z), 100) #random sampling of a 100 values from vectors y & z
+
+# Question ----------------------------------------------------------------
+
+?function_name_here
 
 # Function example --------------------------------------------------------
-    myfunction <- function(x) {
+  myfunction <- function(x) {
       y <- rnorm(100)
       mean (y)
     }
-    myfunction()
+  myfunction()
+      #[1] 0.00590302
     
-    second <- function(x) {
+  second <- function(x) {
       x + rnorm(length(x))
     }
-    second(4)
-    second(4:10) #four to ten
+  second(4)
+    #[1] 3.312413
+  second(4:10) #four to ten
 
 
-    
 # Sequences ---------------------------------------------------------------
     x <- 1:20
     x
+
+    #or
+    seq(1,20)
+      seq(0,10, by=0.5) #a sequence by steps of 0.5
+      seq(5,10, length=30) #a sequence with a length of 30 from 5 to 10
+        length() #to check what length your sequence has
+        seq_along(); seq(along.with=)
+
+        
+# Replicates --------------------------------------------------------------
+    rep(0, times=40) #vector with 40 zeros
+    rep(c(0,1,2), times=10)
+      rep(c(0,1,2), each=10) #repeating vector over and over again
+    
 
 # Vectors -----------------------------------------------------------------
 ##Creating vectors of objects c()
@@ -59,11 +99,51 @@ read.csv()
     x <- c("a", "b","c") #character
     x <- 9:29           #integer
     x <- c(1+0i, 2+4i)  #complex
+    
+    class(x) #if several classes, find out which class
 
 ##Using the vector() function
     
     x <- vector("numeric", length=10)
     x
+    
+    #Collapse a vector of length 3 to length 1
+    #Example
+    my_char <- c("My","name","is")
+    my_char
+    paste(my_char, collapse=" ") #space between "" necessary
+    paste("","", sep = " ") #sep with or without space 
+      paste(1:3,c("X","Y","Z"), sep = "")
+        #[1] "1X" "2Y" "3Z"
+      paste(LETTERS, 1:4, sep = "-") #numeric vector 1:4 gets 'coerced' into a character vector by the paste function
+        #"A-1" "B-2" "C-3" "D-4" "E-1" "F-2" "G-3" "H-4" ...
+      
+    x[c(3,5,7)] #vector of certain indexes
+    x[c(-2,-10)] #vector excluding certain indexes
+    x[-c(2,10)] #same result as previous
+      
+    #Add names to vectors
+    vect1 <- c(foo = 11, bar = 2, norf = NA)
+    vect2 <- c(11,2,NA)
+    names(vect2) <- c("foo","bar","norf")
+      identical(vect1, vect2) #check if they are identical named
+      vect[c("foo","bar")] #specify vector you're interested
+    
+    #Giving vectors a dimension
+    dim(my_vector) <- c(4,5)
+    attributes(my_vector) 
+      #$dim
+      #[1] 4 5 
+    ##--gave 'my_vector' 4 rows and 5 columns --> now it is a matrix
+      #     [,1] [,2] [,3] [,4] [,5]
+      #[1,]    1    5    9   13   17
+      #[2,]    2    6   10   14   18
+      #[3,]    3    7   11   15   19
+      #[4,]    4    8   12   16   20
+      
+      class(my_vector) #check
+        #[1] "matrix" "array" 
+  
 
 # Coercion - as.* ---------------------------------------------------------
 ##Explicit coercion as.* function
@@ -109,7 +189,50 @@ read.csv()
         #      [,1] [,2] [,3] [,4] [,5]
         #[1,]    1    3    5    7    9
         #[2,]    2    4    6    8   10
-
+  
+  
+  ##--Giving vectors a dimension
+    dim(my_vector) <- c(4,5)
+    attributes(my_vector) 
+      #$dim
+      #[1] 4 5 
+    ##--gave 'my_vector' 4 rows and 5 columns --> now it is a matrix
+      #     [,1] [,2] [,3] [,4] [,5]
+      #[1,]    1    5    9   13   17
+      #[2,]    2    6   10   14   18
+      #[3,]    3    7   11   15   19
+      #[4,]    4    8   12   16   20
+    
+    class(my_vector) #check
+    #[1] "matrix" "array" 
+    
+    #Adding names
+    patients <- c("Bill", "Gina", "Kelly", "Sean")
+    cbind(patients, my_matrix)
+      #[1,] "Bill"   "1" "5" "9"  "13" "17"
+      #[2,] "Gina"   "2" "6" "10" "14" "18"
+      #[3,] "Kelly"  "3" "7" "11" "15" "19"
+      #[4,] "Sean"   "4" "8" "12" "16" "20"
+    ##--matrix with character strings --> implicit coercion - not good
+      
+      my_data <- data.frame(patients, my_matrix)
+      my_data
+      #patients X1 X2 X3 X4 X5
+      #1   Bill  1  5  9 13 17
+      #2   Gina  2  6 10 14 18
+      #3  Kelly  3  7 11 15 19
+      #4   Sean  4  8 12 16 20
+        class(my_data)
+          #[1] "data.frame"
+      
+      cnames <- c("patient","age","weight","bp","rating","test")
+      colnames(my_data) <- cnames
+        #  patient age weight bp rating test
+        #1    Bill   1      5  9     13   17
+        #2    Gina   2      6 10     14   18
+        #3   Kelly   3      7 11     15   19
+        #4    Sean   4      8 12     16   20
+    
 
 
 # Binding columns / rows --------------------------------------------------
@@ -159,10 +282,11 @@ read.csv()
 
 
 # Missing values NA/NaN ---------------------------------------------------
- #denoted by NA or NaN for undefined mathematical operations
+#denoted by NA or NaN for undefined mathematical operations
 
-is.na() #used to test objects if they are NA
-is.nan() #used to test for NAN
+  is.na() #used to test objects if they are NA
+  is.nan() #used to test for NAN
+  
 
   #Example
     x <- c(1,2,NA,10,3)
@@ -178,7 +302,13 @@ is.nan() #used to test for NAN
       #[1] FALSE FALSE  TRUE  TRUE FALSE
     is.nan(x)
       #[1] FALSE FALSE  TRUE FALSE FALSE
-
+    
+      x[is.na(x)] #vector of all NAs
+      x[!is.na(x)] #negation "!" - everything that is not NA
+        x[!is.na(x) & x > 0]
+    
+    ##---R represents TRUE as number 1 and FALSE as number 0
+    sum() #--> gives No of 1 
 
 # Data Frames -------------------------------------------------------------
 
@@ -513,6 +643,7 @@ is.nan() #used to test for NAN
     #[1] 1 2 4 5
   y[good]
     #[1] "a" "b" "d" "f"
+
   
   ##Removing NA values
   
@@ -555,6 +686,7 @@ is.nan() #used to test for NAN
     #[1,]   80
   x / y
   #[1] 0.1666667 0.2857143 0.3750000 0.4444444
+
   
   ##Matrix
   x <- matrix(1:4, 2, 2); y <- matrix(rep(10,4), 2, 2)
