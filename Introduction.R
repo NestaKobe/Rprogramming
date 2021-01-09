@@ -50,9 +50,53 @@ args(list.files)
 #Random sampling
 example <- sample(c(y,z), 100) #random sampling of a 100 values from vectors y & z
 
+
+# Logic -------------------------------------------------------------------
+
+#"&" & "&&"
+  #test with "&" whole vectors as in 
+  TRUE & c(TRUE, FALSE, FALSE)
+  #[1]  TRUE FALSE FALSE
+  #test only first member of operand
+  TRUE && c(TRUE, FALSE, FALSE)
+
+#OR operators "|" & "||" 
+  #test with "|" evaluate if left or right operand is TRUE
+  TRUE | c(TRUE, FALSE, FALSE)
+  #[1] TRUE TRUE TRUE
+  #non-vectorised version "||"
+  TRUE || c(TRUE, FALSE, FALSE)
+  #[1] TRUE
+
+    #Examples
+    6 != 10 && FALSE && 1 >= 2
+      #[1] FALSE
+    TRUE || 5 < 9.3 || FALSE
+      #[1] TRUE
+    5 > 8 || 6 != 8 && 4 > 3.9 #--> FALSE || TRUE && TRUE --> FALSE || TRUE 
+      #[1] TRUE #since right operand is TRUE, entire expression is TRUE
+
+
+  isTRUE()
+  identical()
+  
+  xor() #exclusive OR - if one argument evaluates to TRUE function will return TRUE
+    xor(5==6, !FALSE)
+      #[1] TRUE
+    
+  which() #takes a logical vector as an argument and returns the indices of the vector that are TRUE
+  
+  any() #return TRUE if one or more of the elements in the logical vector are TRUE
+  all() #return TRUE if every element in the logical vector is TRUE
+  
+  any("" < 0)
+  all("" > 0)
+  
+    
 # Question ----------------------------------------------------------------
 
 ?function_name_here
+  
 
 # Function example --------------------------------------------------------
   myfunction <- function(x) {
