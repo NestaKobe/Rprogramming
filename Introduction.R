@@ -1,6 +1,10 @@
-#JohnHopkins University course in RProgramming with Dr Roger Peng
+#JohnHopkins University course in 
+#RProgramming with Dr Roger Peng
+#Getting and cleaning data with Dr Jeff Leek
 
-#Command Shift & R --> make sections
+
+
+# Working directory -------------------------------------------------------
 
 #Set working directory
 setwd("~/Documents/RStudio")
@@ -37,8 +41,34 @@ file.path()
 dir.create(file.path("",""), recursive=TRUE) #for two subfolders "",""
 unlink("", recursive=TRUE) #to delete a folder
 
+#to create a folder directly in wd
+  if(!file.exists("")) {
+    dir.create("")
+  }
+
+#Download data
+download.file()
+  fileURL <- "https://"
+  dowload.file(fileURL, destfile = "./Users/simoncoburg/Documents/RStudio/Rprogramming/xyz.csv", method = "curl") #curl needed because of https://
+  list.files("./Users/simoncoburg/Documents/RStudio/Rprogramming")
+  
+    dateDownloaded <- date()
+    dateDownloaded
+
+  
+
 #read CSV
 read.csv()
+
+#read .xlsx
+library(xlsx)
+xyz <- read.xlsx("wd", sheetIndex = 1, header = TRUE) #sheet index to pinpoint which excel sheet to use
+  colIndex <- 2:3
+  rowIndex <- 1:4
+  xyz <- read.xlsx("wd", sheetIndex = 1, header = TRUE, colIndex = colIndex, rowIndex = rowIndex) #if needed to specify certain columns/rows
+
+#Remove data from workspace
+rm("")
 
 #Determine arguments
 args(list.files)
@@ -47,8 +77,10 @@ args(list.files)
   #no.. = FALSE) 
   #NULL
 
-#Random sampling
-example <- sample(c(y,z), 100) #random sampling of a 100 values from vectors y & z
+#Look at data
+summary() #get info on min, 1st Qu., median, mean, 3rd Qu. and max.
+quantile()
+names() #see column names
 
 
 # Logic -------------------------------------------------------------------
@@ -91,7 +123,9 @@ example <- sample(c(y,z), 100) #random sampling of a 100 values from vectors y &
   
   any("" < 0)
   all("" > 0)
-  
+
+  #Random sampling
+  example <- sample(c(y,z), 100) #random sampling of a 100 values from vectors y & z
     
 # Question ----------------------------------------------------------------
 

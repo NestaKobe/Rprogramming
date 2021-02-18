@@ -135,5 +135,28 @@ rnorm(n, mean = 0, sd = 1)
     sample(1:10, replace = TRUE) #sample with replacement
       #[1]  7  4  4 10  8  1 10  2 10  1
     
+
+
+# Swirl -------------------------------------------------------------------
+
+  #Other examples
+  sample(1:6, 4, replace=TRUE) #rolling four six-sided dice WITH replacement
+  
+  #when size argument to sample() is not specified, R takes a sample equal in 
+  #size to the vector from which it is sampling
+  
+    #Flipping coins
+    #Let the value 0 represent tails and the value 1 represent heads. Use sample() to draw a sample of size 100
+    #rom the vector c(0,1), with replacement. Since the coin is unfair, we must attach specific probabilities
+    #to the values 0 (tails) and 1 (heads) with a fourth argument, prob = c(0.3, 0.7). Assign the result to a
+    #new variable called flips.
+  
+    flips <- sample(c(0,1), 100, prob = c(0.3, 0.7), replace = TRUE)
+    flips2 <- rbinom(100, size=1, prob = 0.7) #same result
+      flips2 <- rbinom(1, size = 100, prob = 0.7) #only shows 'success' of heads
+  
+      
+  replicate() #creates a matrix
+    replicate(100, rpois(5,10)) #replicate a Poisson distrib. of 5 random values with mean 10 a hundred times
   
   
